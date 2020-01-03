@@ -14,6 +14,8 @@ veri = pd.read_csv("tcmb-altin-fiyatlari-2007:06.csv")
 x = veri["AltinFiyat"]
 y = range(1,152)
 
+x = x.reshape(151,1)
+
 plt.scatter(y,x)
 # plt.show()
 

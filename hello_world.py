@@ -11,17 +11,23 @@ import pandas as pd
 veri = pd.read_csv("tcmb-altin-fiyatlari-2007:06.csv")
 
 # print(veri)
-x = veri["AltinFiyat"]
-y = range(1,152)
+x = np.arange(124).reshape(124,1)
 
-x = x.reshape(151,1)
+y = veri["AltinFiyat"]
 
-plt.scatter(y,x)
-# plt.show()
+y = y.values.reshape(124,1)
+# y = y.reshape(152,1)
+
+plt.scatter(x,y)
 
 tahminlineer = LinearRegression()
-tahminlineer.fit(y, x)
-tahminlineer.predict(x)
+# tahminlineer.fit(x, y)
+# tahminlineer.predict(x)
 
-plt.plot(x, tahminlineer.predict(x), color="red")
+xYeni = PolynomialFeatures(degree=8).fit_transform(x)
+
+polinom_model = tahminlineer.fit(xYeni, y)
+
+plt.plot(x, polinom_model.predict(xYeni), color="red")
+plt.show()
 
